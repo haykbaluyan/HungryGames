@@ -2,11 +2,15 @@ __author__ = 'akarapetyan'
 
 
 import hungrygamesqt
+import strategies
+import games
+import random
 
 
-def Main():
+def main():
     hungrygamesqt.run()
 
 
+
 if __name__ == "__main__":
-    Main()
+    main()
