@@ -1,16 +1,9 @@
 __author__ = 'akarapetyan'
 
 import sys
+from hungrygamesmain import *
 from hungrygamesqt.hungrygames import *
-try:
-    from PyQt4 import QtCore, QtGui
-    from PyQt4.QtCore import *
-    from PyQt4.QtGui import *
 
-except Exception as err:
-    print 'HungryGames badly requires PyQt unless you want to run it as a daemon'
-    print 'Error message:', err
-    sys.exit()
 
 
 class WarmUpGui:
@@ -24,27 +17,37 @@ class WarmUpGui:
         self.HungryGames.show()
         #Here goes connectors for buttons
         QtCore.QObject.connect(self.ui.startbutton, QtCore.SIGNAL("clicked()"), self.clicked_startbutton)
-        sys.exit(self.app.exec_())
 
     def clicked_startbutton(self):
         #Checking if we are ready to start the tournament
-        fighters = participants(self.ui)
+        fighters = self.participants()
         #Checking that there are at least 2 selected strategies
         if len(fighters) < 2:
             self.msgBox = QMessageBox()
-            QtGui.QMessageBox.warning(self.msgBox, 'Warning', "Oops !!! \r\n \r\n You forgot to choose at least 2 strategies", QtGui.QMessageBox.Ok)
+            QtGui.QMessageBox.warning(self.msgBox, 'Warning', "Oops !!! \r\n \r\nYou forgot to choose at least 2 strategies", QtGui.QMessageBox.Ok)
             return False
         else:
-            return True
+            main(self)
 
+    def selectedGame(self):
+        #Functions that gets the selected game
+        for radio in self.ui.gamebox.children():
+            if isinstance(radio, QtGui.QRadioButton):
+                if radio.isChecked():
+                    return radio.objectName()
 
-def participants(gui):
-    fighters = []
-    for checkbox in gui.strategybox.children():
-        if (isinstance(checkbox, QtGui.QCheckBox)) & (checkbox.objectName() != "referee"):
-            if checkbox.isChecked():
-                fighters.append(checkbox.objectName())
-    return fighters
+    def participants(self):
+        #Function that gets the selected strategies
+        fighters = []
+        for checkbox in self.ui.strategybox.children():
+            if (isinstance(checkbox, QtGui.QCheckBox)) & (checkbox.objectName() != "referee"):
+                if checkbox.isChecked():
+                    fighters.append(checkbox.objectName())
+        return fighters
+
+    def GetRoundsQty(self):
+        #Function that gets the number of rounds
+        return self.ui.roundsqty.intValue()
 
 
 def run():

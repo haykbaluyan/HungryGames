@@ -670,7 +670,7 @@
       <enum>Qt::Vertical</enum>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_9">
+    <widget class="QCheckBox" name="referee">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -867,7 +867,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox_9</sender>
+   <sender>referee</sender>
    <signal>toggled(bool)</signal>
    <receiver>titfortat</receiver>
    <slot>setChecked(bool)</slot>
@@ -883,7 +883,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_9</sender>
+   <sender>referee</sender>
    <signal>toggled(bool)</signal>
    <receiver>titfor2tats</receiver>
    <slot>setChecked(bool)</slot>
@@ -899,7 +899,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_9</sender>
+   <sender>referee</sender>
    <signal>toggled(bool)</signal>
    <receiver>random</receiver>
    <slot>setChecked(bool)</slot>
@@ -915,7 +915,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_9</sender>
+   <sender>referee</sender>
    <signal>toggled(bool)</signal>
    <receiver>alwaysdefect</receiver>
    <slot>setChecked(bool)</slot>
@@ -931,7 +931,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_9</sender>
+   <sender>referee</sender>
    <signal>toggled(bool)</signal>
    <receiver>alwayscooperate</receiver>
    <slot>setChecked(bool)</slot>
@@ -947,7 +947,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_9</sender>
+   <sender>referee</sender>
    <signal>toggled(bool)</signal>
    <receiver>maximin</receiver>
    <slot>setChecked(bool)</slot>
@@ -963,7 +963,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_9</sender>
+   <sender>referee</sender>
    <signal>toggled(bool)</signal>
    <receiver>winstayloseshift</receiver>
    <slot>setChecked(bool)</slot>
@@ -995,7 +995,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_9</sender>
+   <sender>referee</sender>
    <signal>toggled(bool)</signal>
    <receiver>siri</receiver>
    <slot>setChecked(bool)</slot>
