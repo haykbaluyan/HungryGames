@@ -5,6 +5,7 @@ import hungrygamesqt
 import strategies
 import games
 import singleton
+import tournament
 
 try:
     from PyQt4 import QtCore, QtGui
@@ -16,13 +17,11 @@ except Exception as err:
     print 'Error message:', err
     sys.exit()
 
+
 def ShowSevereError(jet):
     jet.msgBox = QMessageBox()
     QtGui.QMessageBox.critical(jet.msgBox, 'ERROR', "NOP !!! \r\n \r\nCheating is a very dangerous thing. I am shutting down, see you later ;-) ", QtGui.QMessageBox.Ok)
     sys.exit()
-
-def tournament_begin(RoundsNumber, selected_fighters, selected_game):
-    k=0
 
 
 def main(Motor):
@@ -51,7 +50,7 @@ def main(Motor):
             #Getting number of rounds
             RoundsNumber =  Motor.GetRoundsQty()
             #Here we go !! starting the tournament.
-            tournament_begin(RoundsNumber, selected_fighters, selected_game)
+            tournament.Tournament(RoundsNumber, selected_fighters, selected_game)
         else:
             ShowSevereError(Motor)
     else:
