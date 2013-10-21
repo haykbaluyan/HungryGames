@@ -3,7 +3,15 @@ __author__ = 'akarapetyan'
 import sys
 from hungrygamesmain import *
 from hungrygamesqt.hungrygames import *
+from hungrygamesqt.tournamentresults import *
 
+
+class ResultWindow(QtGui.QDialog):
+    def __init__(self, parent):
+        QtGui.QWidget.__init__(self, parent)
+        self.ui = Ui_resultswindow()
+        self.ui.setupUi(self)
+        self.parent = parent
 
 
 class WarmUpGui:
@@ -17,6 +25,15 @@ class WarmUpGui:
         self.HungryGames.show()
         #Here goes connectors for buttons
         QtCore.QObject.connect(self.ui.startbutton, QtCore.SIGNAL("clicked()"), self.clicked_startbutton)
+        QtCore.QObject.connect(self.ui.resultsbutton, QtCore.SIGNAL("clicked()"), self.clicked_resultsbutton)
+
+
+    def clicked_resultsbutton(self):
+        self.ResultWindowInstance = ResultWindow(self.HungryGames)
+        self.ResultWindowInstance.ui.body.reload()
+        self.ResultWindowInstance.ui.body.setUrl(QtCore.QUrl("file:///Users/Areg/HungryGames/resultsfiles/table.html"))
+        self.ResultWindowInstance.exec_()
+
 
     def clicked_startbutton(self):
         #Checking if we are ready to start the tournament
@@ -28,6 +45,7 @@ class WarmUpGui:
             return False
         else:
             main(self)
+            self.ui.resultsbutton.setEnabled(True)
 
     def selectedGame(self):
         #Functions that gets the selected game

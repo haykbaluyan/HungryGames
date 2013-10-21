@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'hungrygames.ui'
 #
-# Created: Sun Oct 20 10:57:41 2013
+# Created: Mon Oct 21 00:26:18 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,14 +26,14 @@ except AttributeError:
 class Ui_HungryGames(object):
     def setupUi(self, HungryGames):
         HungryGames.setObjectName(_fromUtf8("HungryGames"))
-        HungryGames.resize(777, 540)
+        HungryGames.resize(777, 525)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(HungryGames.sizePolicy().hasHeightForWidth())
         HungryGames.setSizePolicy(sizePolicy)
-        HungryGames.setMinimumSize(QtCore.QSize(777, 540))
-        HungryGames.setMaximumSize(QtCore.QSize(777, 540))
+        HungryGames.setMinimumSize(QtCore.QSize(777, 525))
+        HungryGames.setMaximumSize(QtCore.QSize(777, 525))
         HungryGames.setUnifiedTitleAndToolBarOnMac(False)
         self.centralwidget = QtGui.QWidget(HungryGames)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -210,12 +210,8 @@ class Ui_HungryGames(object):
         self.label_32 = QtGui.QLabel(self.gamebox)
         self.label_32.setGeometry(QtCore.QRect(640, 170, 62, 41))
         self.label_32.setObjectName(_fromUtf8("label_32"))
-        self.progressBar = QtGui.QProgressBar(self.centralwidget)
-        self.progressBar.setGeometry(QtCore.QRect(330, 450, 311, 31))
-        self.progressBar.setProperty("value", 0)
-        self.progressBar.setObjectName(_fromUtf8("progressBar"))
         self.startbutton = QtGui.QToolButton(self.centralwidget)
-        self.startbutton.setGeometry(QtCore.QRect(650, 450, 111, 31))
+        self.startbutton.setGeometry(QtCore.QRect(380, 450, 151, 31))
         self.startbutton.setObjectName(_fromUtf8("startbutton"))
         self.strategybox = QtGui.QGroupBox(self.centralwidget)
         self.strategybox.setGeometry(QtCore.QRect(10, 300, 311, 181))
@@ -304,9 +300,13 @@ class Ui_HungryGames(object):
         self.horizontalSlider.setMaximum(1000)
         self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalSlider.setObjectName(_fromUtf8("horizontalSlider"))
+        self.resultsbutton = QtGui.QToolButton(self.centralwidget)
+        self.resultsbutton.setEnabled(False)
+        self.resultsbutton.setGeometry(QtCore.QRect(560, 450, 151, 31))
+        self.resultsbutton.setObjectName(_fromUtf8("resultsbutton"))
         HungryGames.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(HungryGames)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 777, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 777, 22))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         HungryGames.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(HungryGames)
@@ -363,7 +363,7 @@ class Ui_HungryGames(object):
         self.label_30.setText(_translate("HungryGames", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; color:#3a23c3;\">-5,3</span></p></body></html>", None))
         self.label_31.setText(_translate("HungryGames", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; color:#3a23c3;\">3,-5</span></p></body></html>", None))
         self.label_32.setText(_translate("HungryGames", "<html><head/><body><p align=\"center\"><span style=\" font-size:24pt; color:#3a23c3;\">2,2</span></p></body></html>", None))
-        self.startbutton.setText(_translate("HungryGames", "FIGHT", None))
+        self.startbutton.setText(_translate("HungryGames", "FIGHT !!!", None))
         self.strategybox.setTitle(_translate("HungryGames", "Strategies", None))
         self.referee.setText(_translate("HungryGames", "  Select / Deselect All", None))
         self.alwayscooperate.setText(_translate("HungryGames", "Always Cooperate", None))
@@ -375,3 +375,5 @@ class Ui_HungryGames(object):
         self.titfor2tats.setText(_translate("HungryGames", "Tit-For-2-Tats", None))
         self.random.setText(_translate("HungryGames", "Random", None))
         self.groupBox.setTitle(_translate("HungryGames", "Number of Rounds", None))
+        self.resultsbutton.setText(_translate("HungryGames", "View Tournament Results", None))
+

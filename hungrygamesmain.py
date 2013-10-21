@@ -27,6 +27,8 @@ def ShowSevereError(jet):
 def main(Motor):
     #Warming up fighters
     Fighters = strategies.Strategies()
+    strategies_disp_name = strategies.Strategies()
+    strategies_disp_name = strategies_disp_name.allstrategies_names
     selected_fighters = Motor.participants()
     trigger = False
     for selected in selected_fighters:
@@ -50,7 +52,7 @@ def main(Motor):
             #Getting number of rounds
             RoundsNumber =  Motor.GetRoundsQty()
             #Here we go !! starting the tournament.
-            tournament.Tournament(RoundsNumber, selected_fighters, selected_game)
+            tournament.Tournament(RoundsNumber, selected_fighters, selected_game, strategies_disp_name)
         else:
             ShowSevereError(Motor)
     else:

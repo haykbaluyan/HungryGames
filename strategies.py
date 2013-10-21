@@ -13,6 +13,15 @@ class Strategies:
         self.allstrategies["maximin"] = self.Maximin
         self.allstrategies["winstayloseshift"] = self.WinStayLoseShift
         self.allstrategies["siri"] = self.Siri
+        self.allstrategies_names = {}
+        self.allstrategies_names["titfortat"] = "Tit-For-Tat"
+        self.allstrategies_names["titfor2tats"] = "Tit-For-2-Tats"
+        self.allstrategies_names["random"] = "Random"
+        self.allstrategies_names["alwaysdefect"] = "Always Defect"
+        self.allstrategies_names["alwayscooperate"] = "Always Cooperate"
+        self.allstrategies_names["maximin"] = "Maximin"
+        self.allstrategies_names["winstayloseshift"] = "Win-Stay-Lose-Shift"
+        self.allstrategies_names["siri"] = "Siri"
 
     def TitForTat(self, turn, previousrounds, place, game, lastscore):
         if turn == 0:
@@ -84,4 +93,51 @@ class Strategies:
         return step
 
     def Siri(self, turn, previousrounds, place, game, lastscore):
-        return self
+            #I am observing other participants my Master
+            initialsteps = ['c', 'd', 'd', 'c', 'c', 'c', 'd', 'd', 'c', 'd']
+            QtyDefectionsMine = 0
+            QtyDefectionsOpponent = 0
+            if turn < 10:
+                step = initialsteps[turn]
+            else:
+                for i in range(0, len(previousrounds), 1):
+                    if previousrounds[i][place] == 'd':
+                        QtyDefectionsMine += 1
+                    if previousrounds[i][1-place] == 'd':
+                        QtyDefectionsOpponent += 1
+                #print QtyDefectionsOpponent, QtyDefectionsMine
+                if QtyDefectionsOpponent == turn + 1:
+                    #My Master, this oppponent is a defecter
+                    if game == 'prisonersdillema':
+                        step = 'd'
+                    elif game == 'chicken':
+                        step = 'c'
+                    elif game == 'staghunt':
+                        step = 'd'
+                elif QtyDefectionsOpponent == 0:
+                    #My Master, this opponent is a cooperator
+                    if game == 'staghunt':
+                        step = 'c'
+                    else:
+                        step = 'd'
+                elif float(QtyDefectionsOpponent)/float(turn + 1) <= float(1)/float(5):
+                    #My Master, this is a kind opponent
+                    if game == 'staghunt':
+                        step = 'c'
+                    else:
+                        step = 'd'
+                elif float(QtyDefectionsOpponent)/float(turn + 1) <= float(3)/float(5):
+                    #My Master, this is opponent most likely is similar to us
+                    if game == 'chicken':
+                        step = 'd'
+                    else:
+                        step = 'c'
+                elif float(QtyDefectionsOpponent)/float(turn + 1) > float(3)/float(5):
+                    #My Master, This is opponent most likely is a defecter
+                    if game == 'prisonersdillema':
+                        step = 'd'
+                    elif game == 'chicken':
+                        step = 'c'
+                    elif game == 'staghunt':
+                        step = 'd'
+            return step
