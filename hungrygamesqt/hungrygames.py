@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'hungrygames.ui'
 #
-# Created: Mon Oct 21 00:26:18 2013
+# Created: Tue Oct 22 23:16:21 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,6 +34,9 @@ class Ui_HungryGames(object):
         HungryGames.setSizePolicy(sizePolicy)
         HungryGames.setMinimumSize(QtCore.QSize(777, 525))
         HungryGames.setMaximumSize(QtCore.QSize(777, 525))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../images/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        HungryGames.setWindowIcon(icon)
         HungryGames.setUnifiedTitleAndToolBarOnMac(False)
         self.centralwidget = QtGui.QWidget(HungryGames)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -212,6 +215,7 @@ class Ui_HungryGames(object):
         self.label_32.setObjectName(_fromUtf8("label_32"))
         self.startbutton = QtGui.QToolButton(self.centralwidget)
         self.startbutton.setGeometry(QtCore.QRect(380, 450, 151, 31))
+        self.startbutton.setAutoFillBackground(False)
         self.startbutton.setObjectName(_fromUtf8("startbutton"))
         self.strategybox = QtGui.QGroupBox(self.centralwidget)
         self.strategybox.setGeometry(QtCore.QRect(10, 300, 311, 181))
@@ -326,7 +330,7 @@ class Ui_HungryGames(object):
         QtCore.QMetaObject.connectSlotsByName(HungryGames)
 
     def retranslateUi(self, HungryGames):
-        HungryGames.setWindowTitle(_translate("HungryGames", "Hungrygames", None))
+        HungryGames.setWindowTitle(_translate("HungryGames", "Hungry Games", None))
         self.gamebox.setTitle(_translate("HungryGames", "Games", None))
         self.prisonersdillema.setText(_translate("HungryGames", "Prisoner\'s Dilemma", None))
         self.chicken.setText(_translate("HungryGames", "Chicken", None))
@@ -375,5 +379,5 @@ class Ui_HungryGames(object):
         self.titfor2tats.setText(_translate("HungryGames", "Tit-For-2-Tats", None))
         self.random.setText(_translate("HungryGames", "Random", None))
         self.groupBox.setTitle(_translate("HungryGames", "Number of Rounds", None))
-        self.resultsbutton.setText(_translate("HungryGames", "View Tournament Results", None))
+        self.resultsbutton.setText(_translate("HungryGames", "VIEW RESULTS", None))
 

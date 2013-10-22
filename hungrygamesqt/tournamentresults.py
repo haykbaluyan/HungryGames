@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'tournamentresults.ui'
 #
-# Created: Mon Oct 21 18:40:08 2013
+# Created: Tue Oct 22 23:15:38 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,11 +26,14 @@ except AttributeError:
 class Ui_resultswindow(object):
     def setupUi(self, resultswindow):
         resultswindow.setObjectName(_fromUtf8("resultswindow"))
-        resultswindow.resize(1260, 560)
-        resultswindow.setMinimumSize(QtCore.QSize(1260, 560))
-        resultswindow.setMaximumSize(QtCore.QSize(1260, 560))
+        resultswindow.resize(1260, 850)
+        resultswindow.setMinimumSize(QtCore.QSize(1260, 850))
+        resultswindow.setMaximumSize(QtCore.QSize(1260, 850))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../images/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        resultswindow.setWindowIcon(icon)
         self.body = QtWebKit.QWebView(resultswindow)
-        self.body.setGeometry(QtCore.QRect(0, 0, 1261, 581))
+        self.body.setGeometry(QtCore.QRect(0, 0, 1261, 851))
         self.body.setUrl(QtCore.QUrl(_fromUtf8("file:///Users/Areg/HungryGames/resultsfiles/table.html")))
         self.body.setObjectName(_fromUtf8("body"))
 

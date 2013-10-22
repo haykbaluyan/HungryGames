@@ -12,7 +12,7 @@ class Tournament:
         self.selected_game = selected_game
         self.tournament_starts()
 
-    def writeresultstofile(self, PlayersAndAvgScores, tablescores):
+    def writeresultstofile(self, PlayersAndAvgScores, tablescores, ResultForGraph):
 
         content = "/*** Created by Areg on 10/20/13.*/"
         content += "$(document).ready(function() {"
@@ -43,11 +43,69 @@ class Tournament:
         content += "$(\"#tablecontainer\").append(table);"
         content += "});"
 
+
+        content1 = "var chartVars = \"KoolOnLoadCallFunction=chartReadyHandler\";"
+        content1 += "KoolChart.create(\"chart1\", \"chartHolder\", chartVars, \"100%\", \"90%\");"
+        content1 += "function chartReadyHandler(id) {"
+        content1 += "document.getElementById(id).setLayout(layoutStr);"
+        content1 += "document.getElementById(id).setData(chartData);"
+        content1 += "}"
+        content1 += "var layoutStr ="
+        content1 += "'<KoolChart backgroundColor=\"0xFFFFFF\" cornerRadius=\"12\" borderStyle=\"solid\">'"
+        content1 += "+'    <Options>'"
+        content1 += "+'        <Caption text=\""
+
+        for i in range(0, len(PlayersAndAvgScores), 1):
+            score, name = PlayersAndAvgScores[i]
+            content1 += str(name) + " | "
+        content1 += "\"/>'"
+        content1 += "+'        <Legend defaultMouseOverAction=\"false\" useVisibleCheck=\"true\"/>'"
+        content1 += "+'    </Options>'"
+        content1 += "+'    <Line2DChart showDataTips=\"true\" >'"
+        content1 += "+'        <horizontalAxis>'"
+        content1 += "+'            <CategoryAxis categoryField=\"Population\" maximum=\"1000\"/> '"
+        content1 += "+'        </horizontalAxis>'"
+        content1 += "+'         <verticalAxis>'"
+        content1 += "+'     <LinearAxis maximum=\"0.2\" interval=\"0.001\" minimum=\"0\" />'"
+        content1 += "+'         </verticalAxis>'"
+        content1 += "+'        <series>'"
+
+        for i in range(0, len(PlayersAndAvgScores), 1):
+            score, name = PlayersAndAvgScores[i]
+            content1 += "+'            <Line2DSeries yField=\"" + name + "\" form=\"curve\" displayName=\"" + name + "\" color=\"0xeca614\">'"
+            content1 += "+'                <showDataEffect>'"
+            content1 += "+'                    <SeriesInterpolate/> '"
+            content1 += "+'                </showDataEffect>'"
+            content1 += "+'            </Line2DSeries>'"
+
+        content1 += "+'        </series>'"
+        content1 += "+'    </Line2DChart>'"
+        content1 += "+'</KoolChart>';"
+
+        content1 += "var chartData = ["
+        for i in range(0, self.RoundsNumber, 1):
+                if i % 150 == 0:
+                    content1 += "{\"Population\":" + str(i)
+                    for key in ResultForGraph.keys():
+                        content1 += ",\"" + key + "\":" + str(ResultForGraph[key][i])
+                    content1 += "},"
+        content1 += "]"
+
+        try:
+        # This will create a new file or **overwrite an existing file**.
+            f = open("resultsfiles/js/chartgenerator.js", "w")
+            try:
+                f.writelines(content1)# Write a sequence of strings to a file
+            finally:
+                f.close()
+        except IOError:
+            pass
+
         try:
         # This will create a new file or **overwrite an existing file**.
             f = open("resultsfiles/js/tablegenerator.js", "w")
             try:
-                f.writelines(content) # Write a sequence of strings to a file
+                f.writelines(content)# Write a sequence of strings to a file
             finally:
                 f.close()
         except IOError:
@@ -91,7 +149,7 @@ class Tournament:
         ResultList = {}
         print Scores
         for i in Scores.keys():
-            ResultList.update({self.Strategy_display_names[i]: round(Scores[i]/float(len(self.selected_fighters)), 2)})
+            ResultList.update({self.Strategy_display_names[i]: round(Scores[i]/float(len(self.selected_fighters)*float(1000)), 4)})
         Player = collections.namedtuple('Player', 'score name')
         best = sorted([Player(v, k) for (k, v) in ResultList.items()], reverse=True)
         TmpNameArray = []
@@ -100,6 +158,11 @@ class Tournament:
             for key in self.Strategy_display_names.keys():
                 if self.Strategy_display_names[key] == name:
                     TmpNameArray.append(key)
+        for key in Gamelog.keys():
+            score1, score2 = Gamelog[key][-1].split("||", 2)
+            score1 = float(score1)/float(1000)
+            score2 = float(score2)/float(1000)
+            Gamelog[key][-1] = str(score1)+'||'+str(score2)
         tablescores = [[0 for x in xrange(len(self.selected_fighters))] for x in xrange(len(self.selected_fighters))]
         for i in range(0, len(TmpNameArray), 1):
             for j in range(i, len(TmpNameArray), 1):
@@ -121,10 +184,42 @@ class Tournament:
                                 tablescores[j][i] = score1
                             else:
                                 tablescores[i][j] = score1
+        ResultForGraph = {}
+        for j in range(0, len(self.selected_fighters), 1):
+            score, name = best[j]
+            ResultForGraph[name] = []
+
+        GraphQTY = len(tablescores)
+        PtInitial = []
+        PtNew = []
+        for i in range(0, GraphQTY, 1):
+            PtInitial.append(float(1)/float(GraphQTY))
+        for i in range(0, self.RoundsNumber, 1):
+            if i == 0:
+                Pt = PtInitial
+            else:
+                Pt = PtNew
+            Ut = []
+            for j in range(0, GraphQTY, 1):
+                Sum = 0
+                for k in range(0, GraphQTY, 1):
+                    Tmp = float(Pt[j]) * float(tablescores[j][k])
+                    Sum += Tmp
+                Ut.append(Sum)
+            Sum = 0
+            for z in range(0, GraphQTY, 1):
+                Sum += Pt[z] * Ut[z]
+            for z in range(0, GraphQTY, 1):
+                num = Pt[z] * Ut[z]
+                PtNew.append(float(num) / float(Sum))
+            for j in range(0, GraphQTY, 1):
+                score, name = best[j]
+                ResultForGraph[name].append(Pt[j])
         print tablescores
         print TmpNameArray
+        print ResultForGraph
         print Gamelog
-        self.writeresultstofile(best, tablescores)
+        self.writeresultstofile(best, tablescores, ResultForGraph)
 
 
 
